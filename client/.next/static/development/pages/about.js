@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var config = {
   link: new apollo_boost__WEBPACK_IMPORTED_MODULE_1__["HttpLink"]({
-    uri: "http://localhost:4000/api",
+    uri:  false ? undefined : "http://localhost:4000/api",
     // Server URL (must be absolute)
     fetchOptions: {
       credentials: "same-origin"

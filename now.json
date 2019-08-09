@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "name": "apollo-zeit",
-  "regions": ["bru"],
+  "name": "emu-ts",
   "builds": [
     { "src": "client/next.config.js", "use": "@now/next" },
     { "src": "api/index.ts", "use": "@now/node" }
