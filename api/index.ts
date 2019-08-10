@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-express";
 import express from "express";
+import dotaBuffScraper from "./dotaBuffScraper";
 
 const books = [
   {
@@ -18,20 +19,34 @@ const typeDefs = gql`
     author: String
   }
 
+  type Hero {
+    name: String
+  }
+
   type Query {
     books: [Book]
+    heroes: [Hero]
   }
 `;
 
 const resolvers = {
   Query: {
-    books: () => books
+    books: () => books,
+    heroes: async (parent, args, context, info) => {
+      const names = await context.dataSources.dotaBuffScraper.getStats();
+      return names;
+    }
   }
 };
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  dataSources: () => {
+    return {
+      dotaBuffScraper: new dotaBuffScraper()
+    };
+  },
   introspection: true,
   playground: { endpoint: "/api" }
 });
